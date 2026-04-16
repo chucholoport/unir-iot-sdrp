@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = "../src/dht22-alarm/build/dht22-alarm.elf"
+elf = "../src/dht22-alarm/build/dht22-alarm.elf"
