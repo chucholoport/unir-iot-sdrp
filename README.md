@@ -19,6 +19,10 @@ En esta práctica crearemos un sistema de alarma con botones y leds que se activ
 1. Si se presiona uno de los botones, apaga los leds.
 1. El código debe verificar estas condiciones y actuar en consecuencia cada segundo.
 
+## Diagrama de implementación de hardware en Wokwi
+
+![diagram](wokwi/diagram.png)
+
 ## Arquitectura del proyecto
 
 ```sh
