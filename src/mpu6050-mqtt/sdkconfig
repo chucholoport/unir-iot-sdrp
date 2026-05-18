@@ -3226,6 +3226,59 @@ CONFIG_WL_SECTOR_SIZE_4096=y
 # default:
 CONFIG_WL_SECTOR_SIZE=4096
 # end of Wear Levelling
+
+#
+# I2C Device Library
+#
+# default:
+# CONFIG_I2CDEV_USE_LEGACY_DRIVER is not set
+# default:
+# CONFIG_I2CDEV_AUTO_ENABLE_PULLUPS is not set
+# default:
+CONFIG_I2CDEV_DEFAULT_SDA_PIN=21
+# default:
+CONFIG_I2CDEV_DEFAULT_SCL_PIN=22
+# default:
+CONFIG_I2CDEV_MAX_DEVICES_PER_PORT=8
+# default:
+CONFIG_I2CDEV_TIMEOUT=1000
+# default:
+# CONFIG_I2CDEV_NOLOCK is not set
+# end of I2C Device Library
+
+#
+# MPU6050
+#
+# default:
+# CONFIG_AUTO_CONFIG_ADDR is not set
+# end of MPU6050
+
+#
+# ESP-MQTT Configurations
+#
+# default:
+CONFIG_MQTT_PROTOCOL_311=y
+# default:
+# CONFIG_MQTT_PROTOCOL_5 is not set
+# default:
+CONFIG_MQTT_TRANSPORT_SSL=y
+# default:
+CONFIG_MQTT_TRANSPORT_WEBSOCKET=y
+# default:
+CONFIG_MQTT_TRANSPORT_WEBSOCKET_SECURE=y
+# default:
+# CONFIG_MQTT_MSG_ID_INCREMENTAL is not set
+# default:
+# CONFIG_MQTT_SKIP_PUBLISH_IF_DISCONNECTED is not set
+# default:
+# CONFIG_MQTT_REPORT_DELETED_MESSAGES is not set
+# default:
+# CONFIG_MQTT_USE_CUSTOM_CONFIG is not set
+# default:
+# CONFIG_MQTT_TASK_CORE_SELECTION_ENABLED is not set
+# default:
+# CONFIG_MQTT_CUSTOM_OUTBOX is not set
+# end of ESP-MQTT Configurations
 # end of Component config
 
 # default:
