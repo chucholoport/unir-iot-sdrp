@@ -1,0 +1,6 @@
+# Configuración de la extensión Wokwi para VS Code — Ejercicio 3 (dado)
+# Rutas relativas a la carpeta del proyecto ESP-IDF dado-electronico.
+[wokwi]
+version  = 1
+firmware = '../../src/dado-electronico/build/dado-electronico.bin'
+elf      = '../../src/dado-electronico/build/dado-electronico.elf'

@@ -1,4 +1,0 @@
-[wokwi]
-version = 1
-firmware = "../src/mpu6050-mqtt/build/mpu6050-mqtt.elf"
-elf = "../src/mpu6050-mqtt/build/mpu6050-mqtt.elf"

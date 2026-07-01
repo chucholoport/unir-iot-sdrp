@@ -1,0 +1,4 @@
+[wokwi]
+version  = 1
+firmware = "../../src/nombre-display/build/nombre-display.elf"
+elf      = "../../src/nombre-display/build/nombre-display.elf"

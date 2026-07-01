@@ -1,51 +1,83 @@
-# Actividad: Protocolos de comunicación en IoT y transmisión de datos vía MQTT
+# Actividad: Manejo y programación del *display* de siete segmentos
 
-## Descripción de la actividad 
+## Descripción de la actividad
 
-A lo largo de esta actividad seréis capaces de analizar, practicar y entender con el proceso de transmisión de datos desde una serie de sensores hacia una plataforma IoT utilizando un protocolo de comunicaciones concreto.  
+Esta actividad implementa dos ejercicios sobre un *display* de siete segmentos
+(cátodo común) gobernado por un ESP32:
 
-El caso sobre el que trabajarás es el utilizado en la actividad transversal del título, es decir, el sistema de mantenimiento predictivo de maquinaria usada en procesos productivos. Concretamente, se simulará (con Wokwi) la captura de los datos obtenidos desde un dispositivo ESP32 asociado a un sensor mpu6050 (https://docs.wokwi.com/parts/wokwi-mpu6050) que mide las vibraciones y la temperatura de un motor y su transmisión a una plataforma IoT simulada (Adafruit) mediante protocolo MQTT. Estos dados, después, serán utilizados en otras capas y módulos del proyecto, como, por ejemplo, las de big data. 
+1. **Números del nombre** — muestra, cambiando cada segundo, la secuencia de
+   dígitos correspondiente a las letras del nombre *JESÚS* según su posición en el
+   alfabeto castellano (J=10, E=5, S=20, U=22, S=20 → `1,0,5,2,0,2,2,2,0`).
+2. **Dado electrónico** — al pulsar un botón, genera un número aleatorio del 1 al 6
+   y lo muestra en el *display*.
+
+El desarrollo se realiza con **ESP-IDF v6.0** y se simula con la **extensión de
+Wokwi para VS Code** (no con el IDE web de Wokwi). El código C está documentado con
+**Doxygen** y cumple un subconjunto de **MISRA-C:2012**.
 
 ## Diagrama de implementación de hardware en Wokwi
 
-![diagram](wokwi/diagram.png)
+> Nombre en Display:
+> ![nombre-display](wokwi/nombre-display/diagram.png)
+>
+> Dado electrónico:
+> ![dado-electronico](wokwi/dado-electronico/diagram.png)
 
 ## Arquitectura del proyecto
 
-```sh
-.
-├── LICENSE
+```
+unir-iot-sdrp
 ├── README.md
 ├── src
-│   └── mpu6050-mqtt
+│   ├── nombre-display                 # Ejercicio 2
+│   │   ├── CMakeLists.txt
+│   │   ├── sdkconfig.defaults
+│   │   └── main
+│   │       ├── CMakeLists.txt
+│   │       ├── nombre-display.c
+│   │       ├── seg7.c                  # controlador reutilizable del display
+│   │       └── seg7.h
+│   └── dado-electronico               # Ejercicio 3
 │       ├── CMakeLists.txt
-│       ├── dependencies.lock
-│       ├── sdkconfig
-│       ├── main
-│       │   ├── CMakeLists.txt
-│       │   ├── mpu6050-mqtt.c
-│       │   └── idf_component.yml
-│       └── managed_components
-│           ├── esp-idf-lib__esp_idf_lib_helpers
-│           ├── esp-idf-lib__i2cdev
-│           ├── esp-idf-lib__mpu6050
-│           └── espressif__mqtt
-└── wowki
-    ├── diagram.json
-    └── wokwi.toml
+│       ├── sdkconfig.defaults
+│       └── main
+│           ├── CMakeLists.txt
+│           ├── dado-electronico.c
+│           ├── seg7.c
+│           └── seg7.h
+└── wokwi
+    ├── nombre-display
+    │   ├── diagram.json
+    │   └── wokwi.toml
+    └── dado-electronico
+        ├── diagram.json
+        └── wokwi.toml
 ```
 
-> **Notas:**
-> - Se excluye `build/` → es generado automáticamente por `idf.py build`
-> - `managed_components/` → dependencias manejadas por el sistema de componentes de ESP-IDF
-> - `sdkconfig` → configuración específica del proyecto (puede o no versionarse dependiendo del flujo de trabajo)
-> - `wokwi/` → contiene la simulación (Wokwi), separada del firmware real
+## Compilación y simulación (VS Code + extensión Wokwi)
 
-## Guías de instalación de herramientas y drivers
+Para cada proyecto:
 
-- Proyecto base de Wokwi: [Wokwi Project Online](https://wokwi.com/projects/461468898633518081)
-- Extensión para Visual Studio Code: [Wokwi Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode)
-- Instalación de ESPRESSIF en Linux: [EIM Installation on Linux](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-setup.html)
-- MPU6050 Driver: [MPU6050 Driver](https://components.espressif.com/components/esp-idf-lib/mpu6050/versions/2.1.9/readme)
-- MQTT Protocol: [ESP-MQTT](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/protocols/mqtt.html)
+```bash
+# 1) Compilar el firmware con ESP-IDF v6.0
+cd src/nombre-display        # o src/dado-electronico
+idf.py build
 
+# 2) Simular: abrir el diagram.json correspondiente en VS Code
+#    y ejecutar "Wokwi: Start Simulator".
+#    El wokwi.toml apunta a build/<proyecto>.elf y build/<proyecto>.bin
+```
+
+## Mapa de conexiones (cátodo común)
+
+| Segmento | GPIO ESP32 |
+|:--------:|:----------:|
+| A | 15 |
+| B | 2  |
+| C | 4  |
+| D | 5  |
+| E | 18 |
+| F | 19 |
+| G | 21 |
+| COM | GND |
+| Botón (dado) | 23 (pull-up interno, a GND) |
